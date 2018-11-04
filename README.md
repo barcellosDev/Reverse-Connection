@@ -37,6 +37,6 @@ __Importante*: Você precisa ter o NetCat em seu pc.__
 
 <li>php client.php --host 127.0.0.1 -p 7500</li>
 
-<li>php client.php -h 127.0.0.1 -p 8080 --directory C:\\Users\\(seu usuário)\\Documents\\netcat-win32-1.12\\nc.exe</li>
+<li>php client.php -h 127.0.0.1 -p 8080 --directory C:\Users\(seu usuário)\Documents\netcat-win32-1.12\nc.exe</li>
 
-<li>php client.php --host 192.168.1.40 --port 6405 -d (Caminho completo)</li>
+<li>php client.php --host 192.168.1.40 --port 6405 -d C:/netcat/nc.exe</li>
