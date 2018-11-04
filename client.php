@@ -22,8 +22,9 @@ class Client
 
   private static function ajuda()
   {
-    echo "* -p or --port para definir a porta de escuta\n";
-    echo "* -h or --host para definir o seu IP\n";
+    echo "* -p or --port para definir a porta de escuta *\n";
+    echo "* -h or --host para definir o seu IP *\n";
+    echo "* -d or --diretorio para definir o caminho do Netcat *";
     exit();
   }
 
