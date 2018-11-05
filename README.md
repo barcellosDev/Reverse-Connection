@@ -26,7 +26,7 @@ __Importante*: Você precisa ter o NetCat em seu pc.__
   <td>Define a porta de escuta. Se utiliza para redes externas, libere a porta no firewall e permita o Port Fowarding no seu roteador principal.</td>
 </tr>
 <tr>
-  <td>-dir ou --directory</td>
+  <td>-dir ou --directory (opcional)</td>
   <td>Define o caminho (completo) do sistema até o arquivo .exe do Netcat</td>
 </tr>
 </table>
