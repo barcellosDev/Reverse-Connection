@@ -176,7 +176,7 @@ class Client
       {
         if ($valor == $key or $valor == $value)
         {
-          $port = (isset($argv[$chave+1]) and is_numeric($argv[$chave+1]) and strlen($argv[$chave+1]) < 5 and $argv[$chave+1] != 0) ? $argv[$chave+1] : null;
+          $port = (isset($argv[$chave+1]) and is_numeric($argv[$chave+1]) and strlen($argv[$chave+1]) <= 5 and $argv[$chave+1] != 0) ? $argv[$chave+1] : null;
         }
       }
       foreach (self::$rotas['dir'] as $caminho => $alter_caminho)
